@@ -8,7 +8,7 @@ export const ChessGame: React.FC<ChessGameProps> = () => {
 
   return (
     <div>
-      <ChessBoard id="TODO" game={game} onPieceDrop={onDrop} />
+      <ChessBoard game={game} onPieceDrop={onDrop} />
     </div>
   );
 };

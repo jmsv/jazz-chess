@@ -1,6 +1,7 @@
 import { ClerkProvider, useClerk } from "@clerk/clerk-react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router";
 import App from "./App.tsx";
 import "./index.css";
 import { JazzProviderWithClerk } from "jazz-react-auth-clerk";
@@ -32,10 +33,12 @@ function JazzProvider({ children }: { children: React.ReactNode }) {
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
-      <JazzProvider>
-        <App />
-      </JazzProvider>
-    </ClerkProvider>
+    <BrowserRouter>
+      <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
+        <JazzProvider>
+          <App />
+        </JazzProvider>
+      </ClerkProvider>
+    </BrowserRouter>
   </StrictMode>
 );

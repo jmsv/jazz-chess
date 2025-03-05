@@ -1,20 +1,21 @@
 import { SignInButton } from "@clerk/clerk-react";
-import { useAccount, useIsAuthenticated } from "jazz-react";
-import { ChessGame } from "./ChessGame";
+import { useIsAuthenticated } from "jazz-react";
+import { Route, Routes } from "react-router";
+import Game from "./pages/Game";
+import Home from "./pages/Home";
 
 function App() {
-  const { me, logOut } = useAccount();
-
   const isAuthenticated = useIsAuthenticated();
 
   if (isAuthenticated) {
     return (
-      <div className="container">
-        <h1>You're logged in</h1>
-        <p>Welcome back, {me?.profile?.name}</p>
-        <ChessGame />
-        <button onClick={() => logOut()}>Logout</button>
-      </div>
+      <Routes>
+        <Route index element={<Home />} />
+
+        <Route path="game">
+          <Route path=":id" element={<Game />} />
+        </Route>
+      </Routes>
     );
   }
 

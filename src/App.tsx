@@ -13,7 +13,7 @@ function App() {
         <Route index element={<Home />} />
 
         <Route path="game">
-          <Route path=":id" element={<Game />} />
+          <Route path=":gameId" element={<Game />} />
         </Route>
       </Routes>
     );

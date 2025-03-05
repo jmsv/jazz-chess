@@ -26,13 +26,15 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({ game, ...props }) => {
         />
       );
     });
+
     return pieceComponents;
   }, []);
 
+  const fen = useMemo(() => game.fen(), [game]);
+
   return (
     <Chessboard
-      {...props}
-      position={game.fen()}
+      position={fen}
       customDarkSquareStyle={{ backgroundColor: "#9a8fff" }}
       customLightSquareStyle={{ backgroundColor: "#edebff" }}
       customPieces={customPieces}
@@ -40,6 +42,7 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({ game, ...props }) => {
         borderRadius: "4px",
         boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
       }}
+      {...props}
     />
   );
 };

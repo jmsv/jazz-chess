@@ -2,11 +2,11 @@ import { ClerkProvider, useClerk } from "@clerk/clerk-react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router";
+import { JazzProviderWithClerk } from "jazz-react-auth-clerk";
+
+import { apiKey } from "./apiKey";
 import App from "./App.tsx";
 import "./index.css";
-import { JazzProviderWithClerk } from "jazz-react-auth-clerk";
-import { apiKey } from "./apiKey";
-import { JazzAccount } from "./schema.ts";
 
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
@@ -24,7 +24,6 @@ function JazzProvider({ children }: { children: React.ReactNode }) {
         peer: `wss://cloud.jazz.tools/?key=${apiKey}`,
         when: "signedUp",
       }}
-      AccountSchema={JazzAccount}
     >
       {children}
     </JazzProviderWithClerk>

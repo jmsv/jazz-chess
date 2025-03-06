@@ -11,6 +11,8 @@ import { ChessGameState, ChessMove } from "../schema";
 
 export const useGame = (gameId: ID<ChessGameState>) => {
   const { me } = useAccount();
+
+  // TODO: This isn't working for logged-out users
   const chessGame = useCoState(ChessGameState, gameId, {
     whitePlayer: {},
     blackPlayer: {},

@@ -1,5 +1,6 @@
 import { ID } from "jazz-tools";
 import { ChessboardDnDProvider } from "react-chessboard";
+import { useIsAuthenticated } from "jazz-react";
 import { ChessBoard } from "./ChessBoard";
 import { useGame } from "./hooks/useGame";
 import type { ChessGameState } from "./schema";
@@ -9,12 +10,15 @@ import {
 } from "./components/chess/PlayerButton";
 import { ChessPlayer } from "./components/chess/ChessPlayer";
 import { cn } from "./lib/utils";
+import { SignInButton } from "./components/layout/SignInButton";
 
 interface ChessGameProps {
   gameId: ID<ChessGameState>;
 }
 
 export const ChessGame: React.FC<ChessGameProps> = ({ gameId }) => {
+  const isAuthenticated = useIsAuthenticated();
+
   const {
     game,
     playerColor,
@@ -33,17 +37,23 @@ export const ChessGame: React.FC<ChessGameProps> = ({ gameId }) => {
       <div className="px-4 py-12 flex flex-col flex-1 gap-8 items-center">
         <h2 className="text-5xl font-display">Join game</h2>
 
+        {!isAuthenticated && (
+          <SignInButton text="Sign in to join as a player" />
+        )}
+
         <div className="flex gap-4 flex-wrap">
           <PlayerButton
             color="white"
             onClick={() => joinGame("white")}
-            disabled={Boolean(players.white)}
+            disabled={Boolean(players.white) || !isAuthenticated}
           />
+
           <PlayerButton
             color="black"
             onClick={() => joinGame("black")}
-            disabled={Boolean(players.black)}
+            disabled={Boolean(players.black) || !isAuthenticated}
           />
+
           <PlayerButtonSpectate onClick={() => joinGame("spectator")} />
         </div>
       </div>

@@ -1,12 +1,14 @@
-import { useAccount } from "jazz-react";
+import { useAccount, useIsAuthenticated } from "jazz-react";
 import { Group } from "jazz-tools";
 import { useNavigate } from "react-router";
 import { ChessGameState, ChessGameMoves } from "../schema";
 import { ColorSelection } from "@/components/chess/Pawn";
 import { PlayerButton } from "@/components/chess/PlayerButton";
+import { SignInButton } from "@/components/layout/SignInButton";
 
 function Home() {
   const { me } = useAccount();
+  const isAuthenticated = useIsAuthenticated();
 
   const navigate = useNavigate();
 
@@ -39,10 +41,26 @@ function Home() {
     <div className="px-4 py-12 flex flex-col flex-1 gap-8 items-center">
       <h2 className="text-5xl font-display">New game?</h2>
 
+      {!isAuthenticated && <SignInButton text="Sign in to start a game" />}
+
       <div className="flex gap-4 flex-wrap">
-        <PlayerButton color="white" onClick={() => startGame("white")} />
-        <PlayerButton color="black" onClick={() => startGame("black")} />
-        <PlayerButton color="random" onClick={() => startGame("random")} />
+        <PlayerButton
+          color="white"
+          onClick={() => startGame("white")}
+          disabled={!isAuthenticated}
+        />
+
+        <PlayerButton
+          color="black"
+          onClick={() => startGame("black")}
+          disabled={!isAuthenticated}
+        />
+
+        <PlayerButton
+          color="random"
+          onClick={() => startGame("random")}
+          disabled={!isAuthenticated}
+        />
       </div>
     </div>
   );

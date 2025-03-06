@@ -2,6 +2,7 @@ import { useAccount } from "jazz-react";
 import { Group } from "jazz-tools";
 import { useNavigate } from "react-router";
 import { ChessGameState, ChessGameMoves } from "../schema";
+import { Button } from "@/components/ui/button";
 
 function Home() {
   const { me } = useAccount();
@@ -29,9 +30,8 @@ function Home() {
   };
 
   return (
-    <div className="container">
-      <h1>Welcome!</h1>
-      <button onClick={() => startGame()}>Start a new game</button>
+    <div className="p-4 flex flex-col flex-1 gap-4 items-center">
+      <Button onClick={() => startGame()}>Start a new game</Button>
     </div>
   );
 }

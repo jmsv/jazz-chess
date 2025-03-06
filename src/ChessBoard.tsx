@@ -6,6 +6,8 @@ import type {
   Piece,
 } from "react-chessboard/dist/chessboard/types";
 
+const USE_CUSTOM_PIECES = false;
+
 interface ChessBoardProps
   extends Omit<React.ComponentProps<typeof Chessboard>, "position"> {
   game: Chess;
@@ -37,11 +39,8 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({ game, ...props }) => {
       position={fen}
       customDarkSquareStyle={{ backgroundColor: "#9a8fff" }}
       customLightSquareStyle={{ backgroundColor: "#edebff" }}
-      customPieces={customPieces}
-      customBoardStyle={{
-        borderRadius: "4px",
-        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.5)",
-      }}
+      customPieces={USE_CUSTOM_PIECES ? customPieces : undefined}
+      customBoardStyle={{ borderRadius: "var(--radius)" }}
       {...props}
     />
   );

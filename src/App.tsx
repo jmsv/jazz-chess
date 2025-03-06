@@ -3,6 +3,7 @@ import { useIsAuthenticated } from "jazz-react";
 import { Route, Routes } from "react-router";
 import Game from "./pages/Game";
 import Home from "./pages/Home";
+import { Layout } from "./components/layout/Layout";
 
 function App() {
   const isAuthenticated = useIsAuthenticated();
@@ -10,10 +11,12 @@ function App() {
   if (isAuthenticated) {
     return (
       <Routes>
-        <Route index element={<Home />} />
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
 
-        <Route path="game">
-          <Route path=":gameId" element={<Game />} />
+          <Route path="game">
+            <Route path=":gameId" element={<Game />} />
+          </Route>
         </Route>
       </Routes>
     );

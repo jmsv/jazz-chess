@@ -9,7 +9,7 @@ function Game() {
   if (typeof gameId !== "string") throw new Error("Game ID is required");
 
   return (
-    <div className="container">
+    <div className="flex flex-1 flex-col p-4">
       <ChessGame gameId={gameId} />
     </div>
   );

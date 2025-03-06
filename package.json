@@ -12,17 +12,26 @@
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.4.1",
+    "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/vite": "^4.0.10",
     "chess.js": "^1.1.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
     "jazz-react": "^0.10.15",
     "jazz-react-auth-clerk": "^0.10.15",
     "jazz-tools": "^0.10.15",
+    "lucide-react": "^0.477.0",
     "react": "^18.3.1",
     "react-chessboard": "^4.7.2",
     "react-dom": "^18.3.1",
-    "react-router": "^7.2.0"
+    "react-router": "^7.2.0",
+    "tailwind-merge": "^3.0.2",
+    "tailwindcss": "^4.0.10",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@types/node": "^22.13.9",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",

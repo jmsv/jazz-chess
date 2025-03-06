@@ -2,6 +2,7 @@ import { ID } from "jazz-tools";
 import { ChessBoard } from "./ChessBoard";
 import { useGame } from "./hooks/useGame";
 import type { ChessGameState } from "./schema";
+import { Button } from "./components/ui/button";
 
 interface ChessGameProps {
   gameId: ID<ChessGameState>;
@@ -23,22 +24,28 @@ export const ChessGame: React.FC<ChessGameProps> = ({ gameId }) => {
 
   if (!playerColor && !userIsSpectator) {
     return (
-      <div>
-        <button
+      <div className="flex items-center gap-4 flex-wrap">
+        <Button
+          variant="outline"
+          size="lg"
           disabled={Boolean(players.white)}
           onClick={() => joinGame("white")}
         >
           Join as White
-        </button>
+        </Button>
 
-        <button
+        <Button
+          variant="outline"
+          size="lg"
           disabled={Boolean(players.black)}
           onClick={() => joinGame("black")}
         >
           Join as Black
-        </button>
+        </Button>
 
-        <button onClick={() => joinGame("spectator")}>Spectate</button>
+        <Button variant="outline" onClick={() => joinGame("spectator")}>
+          Spectate
+        </Button>
       </div>
     );
   }

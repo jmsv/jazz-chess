@@ -2,25 +2,31 @@ import { useAccount } from "jazz-react";
 import { Group } from "jazz-tools";
 import { useNavigate } from "react-router";
 import { ChessGameState, ChessGameMoves } from "../schema";
-import { Button } from "@/components/ui/button";
+import { ColorSelection } from "@/components/chess/Pawn";
+import { PlayerButton } from "@/components/chess/PlayerButton";
 
 function Home() {
   const { me } = useAccount();
 
   const navigate = useNavigate();
 
-  const startGame = () => {
+  const startGame = (color: ColorSelection) => {
     if (!me) return;
 
     const group = Group.create();
     group.addMember("everyone", "writer");
 
-    const white = Math.random() > 0.5;
+    const pickedWhite =
+      color === "white"
+        ? true
+        : color === "black"
+        ? false
+        : Math.random() > 0.5;
 
     const game = ChessGameState.create(
       {
-        whitePlayer: white ? me : undefined,
-        blackPlayer: white ? undefined : me,
+        whitePlayer: pickedWhite ? me : undefined,
+        blackPlayer: pickedWhite ? undefined : me,
         moves: ChessGameMoves.create([], group),
       },
       group
@@ -30,8 +36,14 @@ function Home() {
   };
 
   return (
-    <div className="p-4 flex flex-col flex-1 gap-4 items-center">
-      <Button onClick={() => startGame()}>Start a new game</Button>
+    <div className="px-4 py-12 flex flex-col flex-1 gap-8 items-center">
+      <h2 className="text-5xl font-display">New game?</h2>
+
+      <div className="flex gap-4 flex-wrap">
+        <PlayerButton color="white" onClick={() => startGame("white")} />
+        <PlayerButton color="black" onClick={() => startGame("black")} />
+        <PlayerButton color="random" onClick={() => startGame("random")} />
+      </div>
     </div>
   );
 }

@@ -37,8 +37,8 @@ export const ChessBoard: React.FC<ChessBoardProps> = ({ game, ...props }) => {
   return (
     <Chessboard
       position={fen}
-      customDarkSquareStyle={{ backgroundColor: "#9a8fff" }}
-      customLightSquareStyle={{ backgroundColor: "#edebff" }}
+      customDarkSquareStyle={{ backgroundColor: "var(--chess-dark)" }}
+      customLightSquareStyle={{ backgroundColor: "var(--chess-light)" }}
       customPieces={USE_CUSTOM_PIECES ? customPieces : undefined}
       customBoardStyle={{ borderRadius: "var(--radius)" }}
       {...props}

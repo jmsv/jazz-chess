@@ -24,7 +24,7 @@
   --card-foreground: oklch(0.985 0.002 247.839);
   --popover: oklch(0.13 0.028 261.692);
   --popover-foreground: oklch(0.985 0.002 247.839);
-  --primary: oklch(46.3% 0.2916 270.98);
+  --primary: oklch(0.511 0.262 276.966);
   --primary-foreground: oklch(0.985 0.002 247.839);
   --secondary: oklch(0.278 0.033 256.848);
   --secondary-foreground: oklch(0.985 0.002 247.839);
@@ -51,6 +51,9 @@
   --sidebar-accent-foreground: oklch(0.985 0.002 247.839);
   --sidebar-border: oklch(0.278 0.033 256.848);
   --sidebar-ring: oklch(0.446 0.03 256.802);
+
+  --chess-dark: oklch(0.785 0.115 274.713);
+  --chess-light: oklch(0.93 0.034 272.788);
 }
 
 body {
@@ -110,4 +113,18 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    fill: white;
+  }
+  50% {
+    fill: black;
+  }
+}
+
+button {
+  @apply cursor-pointer;
 }

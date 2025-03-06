@@ -61,8 +61,6 @@ export const useGame = (gameId: ID<ChessGameState>) => {
           promotion: piece[1].toLowerCase(),
         });
 
-        console.log("move", move);
-
         chessGame?.moves.push(
           ChessMove.create(
             {
@@ -102,15 +100,11 @@ export const useGame = (gameId: ID<ChessGameState>) => {
     black: chessGame?.blackPlayer,
   };
 
-  const activeColor = chessGame?.moves.length
-    ? chessGame?.moves.length % 2 === 0
-      ? "white"
-      : "black"
-    : "white";
+  const activeColor = game.turn();
 
   const whosTurn = {
     color: activeColor,
-    user: activeColor === "black" ? players.black : players.white,
+    user: activeColor === "b" ? players.black : players.white,
   };
   const isUsersTurn = Boolean(whosTurn.user?.isMe);
 

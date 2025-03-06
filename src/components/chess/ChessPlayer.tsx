@@ -22,7 +22,7 @@ export const ChessPlayer: React.FC<ChessPlayerProps> = ({
   return (
     <div
       className={cn(
-        "relative px-4 py-2 rounded-lg border-2 w-fit min-w-3/5 max-w-full transition-all duration-200 flex flex-col md:flex-row md:items-center justify-between gap-4",
+        "relative px-4 py-2 rounded-lg border-2 w-fit min-w-3/5 max-w-full transition-all duration-200 flex flex-col md:flex-row md:items-center justify-between gap-x-4",
         {
           "bg-white text-black border-black": color === "white",
           "bg-black text-white border-white": color === "black",

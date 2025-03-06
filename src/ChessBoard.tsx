@@ -6,7 +6,7 @@ import type {
   Piece,
 } from "react-chessboard/dist/chessboard/types";
 
-const USE_CUSTOM_PIECES = false;
+const USE_CUSTOM_PIECES = true;
 
 interface ChessBoardProps
   extends Omit<React.ComponentProps<typeof Chessboard>, "position"> {

@@ -1,4 +1,5 @@
 import { ID } from "jazz-tools";
+import { ChessboardDnDProvider } from "react-chessboard";
 import { ChessBoard } from "./ChessBoard";
 import { useGame } from "./hooks/useGame";
 import type { ChessGameState } from "./schema";
@@ -6,6 +7,8 @@ import {
   PlayerButton,
   PlayerButtonSpectate,
 } from "./components/chess/PlayerButton";
+import { ChessPlayer } from "./components/chess/ChessPlayer";
+import { cn } from "./lib/utils";
 
 interface ChessGameProps {
   gameId: ID<ChessGameState>;
@@ -17,7 +20,7 @@ export const ChessGame: React.FC<ChessGameProps> = ({ gameId }) => {
     playerColor,
     isReady,
     players,
-    isUsersTurn,
+    whosTurn,
     userIsSpectator,
     onDrop,
     joinGame,
@@ -47,15 +50,39 @@ export const ChessGame: React.FC<ChessGameProps> = ({ gameId }) => {
     );
   }
 
+  const reverse = playerColor === "black";
+
   return (
-    <div>
-      <ChessBoard
-        id={gameId}
-        game={game}
-        onPieceDrop={onDrop}
-        boardOrientation={playerColor ?? "white"}
-        arePiecesDraggable={isUsersTurn}
-      />
-    </div>
+    <ChessboardDnDProvider>
+      <div className="max-w-[65vh] mx-auto w-full">
+        <div
+          className={cn("flex flex-col gap-4", {
+            "flex-col-reverse": reverse,
+          })}
+        >
+          <ChessPlayer
+            color="black"
+            player={players.black}
+            active={whosTurn.color === "b"}
+            reverse={reverse}
+          />
+
+          <ChessBoard
+            id={gameId}
+            game={game}
+            onPieceDrop={onDrop}
+            boardOrientation={playerColor ?? "white"}
+            arePiecesDraggable={whosTurn.isMe}
+          />
+
+          <ChessPlayer
+            color="white"
+            player={players.white}
+            active={whosTurn.color === "w"}
+            reverse={reverse}
+          />
+        </div>
+      </div>
+    </ChessboardDnDProvider>
   );
 };

@@ -32,7 +32,8 @@ export const useGame = (gameId: ID<ChessGameState>) => {
   useEffect(() => {
     if (!chessGame?.moves) return;
 
-    const unsub = chessGame.moves.subscribe([{}], (moves) => {
+    const unsubscribe = chessGame.moves.subscribe([{}], (moves) => {
+      // Create a new game and replay all moves to build the game state
       const newGame = new Chess();
 
       for (const move of moves) {
@@ -47,7 +48,7 @@ export const useGame = (gameId: ID<ChessGameState>) => {
       setIsReady(true);
     });
 
-    return unsub;
+    return unsubscribe;
   }, [chessGame?.id]);
 
   const onDrop = (sourceSquare: Square, targetSquare: Square, piece: Piece) => {
@@ -86,12 +87,13 @@ export const useGame = (gameId: ID<ChessGameState>) => {
 
   const joinGame = (joinAs: "white" | "black" | "spectator") => {
     if (!chessGame) return;
-    setUserIsSpectator(joinAs === "spectator");
 
     if (joinAs === "white" && !chessGame.whitePlayer) {
       chessGame.whitePlayer = me;
     } else if (joinAs === "black" && !chessGame.blackPlayer) {
       chessGame.blackPlayer = me;
+    } else {
+      setUserIsSpectator(true);
     }
   };
 
@@ -100,13 +102,14 @@ export const useGame = (gameId: ID<ChessGameState>) => {
     black: chessGame?.blackPlayer,
   };
 
-  const activeColor = game.turn();
+  const whosTurnColor = game.turn();
+  const whosTurnUser = whosTurnColor === "b" ? players.black : players.white;
 
   const whosTurn = {
-    color: activeColor,
-    user: activeColor === "b" ? players.black : players.white,
+    color: whosTurnColor,
+    user: whosTurnUser,
+    isMe: Boolean(whosTurnUser?.isMe),
   };
-  const isUsersTurn = Boolean(whosTurn.user?.isMe);
 
   const playerColor: BoardOrientation | null = chessGame?.blackPlayer?.isMe
     ? "black"
@@ -123,7 +126,6 @@ export const useGame = (gameId: ID<ChessGameState>) => {
     isReady,
     players,
     whosTurn,
-    isUsersTurn,
     userIsSpectator,
     onDrop,
     joinGame,
